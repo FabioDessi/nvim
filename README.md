@@ -39,4 +39,4 @@ Custom options can be found inside `set.lua`, for a list of available options ch
 | hlsearch | false |
 | incsearch | true |
 | vim.scrolloff | 10 |
-| clipboard | unnamed |
+| clipboard | unnamedplus |
