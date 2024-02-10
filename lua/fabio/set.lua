@@ -17,3 +17,6 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.scrolloff = 10
+
+vim.opt.clipboard = unnamed
+
