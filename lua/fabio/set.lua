@@ -16,6 +16,6 @@ vim.opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.scrolloff = 10
+vim.opt.scrolloff = 999
 
 vim.opt.clipboard = "unnamedplus"
