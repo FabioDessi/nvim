@@ -38,5 +38,5 @@ Custom options can be found inside `set.lua`, for a list of available options ch
 | undodir | os.getenv("HOME") .. "/.config/nvim/undodir" |
 | hlsearch | false |
 | incsearch | true |
-| scrolloff | 999 |
-| clipboard | unnamedplus |
+| vim.scrolloff | 10 |
+| clipboard | unnamed |
