@@ -19,8 +19,9 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = {
         "lua_ls",
-        "tsserver",
         "svelte",
+        "tsserver",
+        "html",
       },
 
       handlers = {
@@ -30,8 +31,22 @@ return {
           }
         end,
 
+        ["lua_ls"] = function() -- custom handler for lua
+          require("lspconfig").lua_ls.setup {
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" }
+                }
+              }
+            }
+          }
+        end
       }
     })
+
+    local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup({
       snippet = {
@@ -55,14 +70,16 @@ return {
         ["<c-f>"] = cmp.mapping.scroll_docs(4),
       }),
 
-      sources = cmp.config.sources({
+      sources = cmp.config.sources(
+      {
         { name = "nvim_lsp" },
         { name = "luasnip" }, -- for luasnip users.
-      }, {
-        { name = "buffer" },
-      })
+      }, 
+        {
+          { name = "buffer" },
+        }
+      )
     })
-
 
   end
 }
