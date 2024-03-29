@@ -8,6 +8,20 @@ return {
   },
 
   config = function()
+    local telescope = require('telescope')
+
+    telescope.setup({
+      pickers = {
+        find_files = {
+          hidden = true,
+          file_ignore_patterns = { '%.git/' }
+        },
+        buffers = {
+          hidden = true
+        },
+      },
+    })
+
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
     vim.keymap.set('n', '<leader>fgf', builtin.git_files, {})
