@@ -23,6 +23,8 @@ return {
         "tsserver",
         "volar",
         "html",
+        "eslint",
+        "tailwindcss",
       },
 
       handlers = {
