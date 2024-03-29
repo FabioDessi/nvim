@@ -21,6 +21,7 @@ return {
         "lua_ls",
         "svelte",
         "tsserver",
+        "volar",
         "html",
       },
 
@@ -74,7 +75,7 @@ return {
       {
         { name = "nvim_lsp" },
         { name = "luasnip" }, -- for luasnip users.
-      }, 
+      },
         {
           { name = "buffer" },
         }
