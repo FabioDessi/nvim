@@ -45,7 +45,35 @@ return {
               }
             }
           }
-        end
+        end,
+
+        ["eslint"] = function() -- custom handler for eslint
+          require("lspconfig").eslint.setup {
+            capabilities = capabilities,
+
+            on_attach = function(client, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                command = "EslintFixAll",
+              })
+            end,
+
+            -- TODO: Investigate documentFormattingProvider, could be useful to avoid conflicts with multiple lsps
+            -- on_attach = function(client, bufnr)
+            --   client.server_capabilities.documentFormattingProvider = true
+            --   if client.server_capabilities.documentFormattingProvider then
+            --     local lsp_group = vim.api.nvim_create_autogroup("eslint_lsp", { clear = true })
+            --     vim.api.nvim_create_autocmd("BufWritePre", {
+            --       pattern = "*",
+            --       callback = function()
+            --         vim.lsp.buf.format(nil)
+            --       end,
+            --       group = lsp_group,
+            --     })
+            --   end
+            -- end,
+          }
+        end,
       }
     })
 
@@ -74,15 +102,14 @@ return {
       }),
 
       sources = cmp.config.sources(
-      {
-        { name = "nvim_lsp" },
-        { name = "luasnip" }, -- for luasnip users.
-      },
+        {
+          { name = "nvim_lsp" },
+          { name = "luasnip" }, -- for luasnip users.
+        },
         {
           { name = "buffer" },
         }
       )
     })
-
   end
 }
