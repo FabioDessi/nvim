@@ -11,6 +11,9 @@ return {
         sidebars = "dark", -- style for sidebars, see below
         floats = "dark", -- style for floating windows
       },
+      on_colors = function (colors)
+        colors.fg_gutter = '#C0CBF4'
+      end
     })
 
     require("tokyonight").load()
