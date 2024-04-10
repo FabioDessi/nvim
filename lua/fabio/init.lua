@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("FabioLspConfig", {}),
   callback = function(ev)
     local opts = { buffer = ev.buf }
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
     vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, opts)
