@@ -19,12 +19,12 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = {
         "lua_ls",
-        "svelte",
         "tsserver",
-        "volar",
-        "html",
         "eslint",
-        "tailwindcss",
+        -- "tailwindcss",
+        -- "volar",
+        -- "html",
+        -- "svelte",
       },
 
       handlers = {
