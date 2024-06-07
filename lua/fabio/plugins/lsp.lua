@@ -20,11 +20,14 @@ return {
       ensure_installed = {
         "lua_ls",
         "tsserver",
+        "astro",
+        "tailwindcss",
+        "html",
+        "svelte",
         "eslint",
-        -- "tailwindcss",
+        -- "biome",
         -- "volar",
-        -- "html",
-        -- "svelte",
+
       },
 
       handlers = {
@@ -47,33 +50,103 @@ return {
           }
         end,
 
+        ["astro"] = function() -- custom handler for astro
+          require("lspconfig").astro.setup {
+            capabilities = capabilities,
+            settings = {
+              astro = {
+                format = {
+                  enable = true
+                },
+                eslint = {
+                  enable = true
+                }
+              }
+            },
+
+            typescript = {
+              serverPath = "/Users/fabio/.nvm/versions/node/v18.20.2/lib"
+            },
+
+            on_attach = function(_, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format()
+                end,
+              })
+            end,
+          }
+        end,
+
+        ["tsserver"] = function() -- custom handler for tsserver
+          require("lspconfig").tsserver.setup {
+            capabilities = capabilities
+          }
+        end,
+
+        ["svelte"] = function ()
+          require("lspconfig").svelte.setup {
+            capabilities = capabilities,
+
+            on_attach = function(_, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format()
+                end,
+              })
+            end,
+          }
+        end,
+
         ["eslint"] = function() -- custom handler for eslint
           require("lspconfig").eslint.setup {
             capabilities = capabilities,
 
-            on_attach = function(client, bufnr)
+            on_attach = function(_, bufnr)
               vim.api.nvim_create_autocmd("BufWritePre", {
                 buffer = bufnr,
                 command = "EslintFixAll",
               })
             end,
-
-            -- TODO: Investigate documentFormattingProvider, could be useful to avoid conflicts with multiple lsps
-            -- on_attach = function(client, bufnr)
-            --   client.server_capabilities.documentFormattingProvider = true
-            --   if client.server_capabilities.documentFormattingProvider then
-            --     local lsp_group = vim.api.nvim_create_autogroup("eslint_lsp", { clear = true })
-            --     vim.api.nvim_create_autocmd("BufWritePre", {
-            --       pattern = "*",
-            --       callback = function()
-            --         vim.lsp.buf.format(nil)
-            --       end,
-            --       group = lsp_group,
-            --     })
-            --   end
-            -- end,
           }
         end,
+
+        -- ["biome"] = function()
+        --   require("lspconfig").biome.setup({
+        --     capabilities = capabilities,
+        --
+        --     on_attach = function(_, bufnr)
+        --       vim.api.nvim_create_autocmd("BufWritePre", {
+        --         buffer = bufnr,
+        --         callback = function()
+        --           vim.lsp.buf.format()
+        --         end,
+        --       })
+        --     end,
+        --   })
+        -- end
+
+
+        -- TODO: Investigate documentFormattingProvider, could be useful to avoid conflicts with multiple lsps
+        --
+        -- on_attach = function(client, bufnr)
+        --   client.server_capabilities.documentFormattingProvider = true
+        --   if client.server_capabilities.documentFormattingProvider then
+        --     local lsp_group = vim.api.nvim_create_autogroup("eslint_lsp", { clear = true })
+        --     vim.api.nvim_create_autocmd("BufWritePre", {
+        --       pattern = "*",
+        --       callback = function()
+        --         vim.lsp.buf.format(nil)
+        --       end,
+        --       group = lsp_group,
+        --     })
+        --   end
+        -- end,
+        --   }
+        -- end,
+
       }
     })
 
