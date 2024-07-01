@@ -14,6 +14,7 @@ return {
         "html",
         "tsx",
         "svelte",
+        "go",
         -- "astro",
         -- "jsdoc",
         -- "pug"
